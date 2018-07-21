@@ -1,6 +1,6 @@
 ## Refrence: https://github.com/titu1994/Inception-v4
 
-rom keras.layers import Input, merge, Dropout, Dense, Flatten, Activation
+from keras.layers import Input, merge, Dropout, Dense, Flatten, Activation
 from keras.layers.convolutional import MaxPooling2D, Convolution2D, AveragePooling2D
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
@@ -175,7 +175,7 @@ def reduction_B(input):
     return m
 
 
-def create_inception_v4(nb_classes=1001, load_weights=True):
+def create_inception_v4(input_shape=(28,28,3),nb_classes=10, load_weights=False):
     '''
     Creates a inception v4 network
     :param nb_classes: number of classes.txt
@@ -183,9 +183,9 @@ def create_inception_v4(nb_classes=1001, load_weights=True):
     '''
 
     if K.image_dim_ordering() == 'th':
-        init = Input((3, 299, 299))
+        init = Input(input_shape)
     else:
-        init = Input((299, 299, 3))
+        init = Input(input_shape)
 
     # Input Shape is 299 x 299 x 3 (tf) or 3 x 299 x 299 (th)
     x = inception_stem(init)
